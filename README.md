@@ -1,1 +1,5 @@
-# data_products
+# Week 2 Assignment
+
+You can open the html file, using...
+
+The original source, R markdown file can be downloaded too...
