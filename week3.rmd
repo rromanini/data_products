@@ -1,0 +1,118 @@
+---
+title: "Week 3 Assignment"
+author: "Rui Romanini"
+date: "22 / june / 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objective
+
+The objective is to use the R Markdown and plotly library to plot a map with interactive elements.
+For this exercise, I will use open data from Brazil, related to air accidents and total of victims. 
+
+
+## Dependencies
+
+Here we need install the packages for this example.
+
+First place the plotly package... objective of this exercise.
+
+```{r, echo=FALSE,message=FALSE}
+install.packages("plotly")
+install.packages("leaflet")
+
+library(plotly)
+library(leaflet)
+
+```
+
+
+## Understanding Data
+
+We can get the data about air accidents in Brazil from CENIPA (Centro de Investigação e Prevenção de Acidentes Aeronáuticos). 
+
+This is the oficial site: http://www2.fab.mil.br/cenipa/
+
+The dataset can be downloaded from 2 urls:
+
+Accidents
+https://raw.githubusercontent.com/nosbielcs/opendata_aig_brazil/master/data/oco.csv
+
+Aircraft and number of victims
+https://raw.githubusercontent.com/nosbielcs/opendata_aig_brazil/master/data/anv.csv
+
+
+This datasets contain accidents ocurred between 2006 and 2015. I did select the 10 worst accidents, with greater number of victims.
+
+
+### Brazil Air Accidents from 2006 until 2015
+
+The scatter plot below show the 10 worst air accidents ocurred in Brazil between 2006 and 2015.
+
+In the x axis we have the Year Variable and the y axis have the ammount of victims variable.
+
+```{r, echo=FALSE}
+
+brasilAccidents <-data.frame(
+  lat= c(-23.5674,-10.7444,-22.6444,-16.4406,-23.4917,-16.5408,-3.2592,-0.8669,-21.8000,-3.0411),
+  lng = c(-46.5704,-53.5203,-42.3203,-52.0042,-46.6444,-39.1078,-60.6719,-52.6436,-43.3869,-60.0506),
+  vitim = c(199,154,19,8,8,14,24,10,8,7),
+  ano=c(2007,2006,2006,2012,2007,2009,2009,2013,2012,2011),
+  classAcident = c(10,10,5,1,1,5,5,5,1,1))
+
+```
+
+```{r, echo=FALSE}
+
+plot_ly(data = brasilAccidents,x=brasilAccidents$ano, y=brasilAccidents$vitim, mode = "markers",
+        size = (brasilAccidents$vitim ),color = brasilAccidents$classAcident)
+```
+
+
+### Total of Brazil Air Accidents from 2006 until 2015
+
+The Bar Plot below summarize the 10 worst air accidents ocurred in Brazil between 2006 and 2015, by year.
+
+In the x axis we have the Year Variable and the y axis have the sum of victims variable.
+
+```{r, echo=FALSE}
+plot_ly(brasilAccidents, x = ~ano, y = ~vitim, type = 'bar') %>%
+  layout(yaxis = list(title = 'Total'),xaxis = list(title = 'Year'), barmode = 'stack')
+```
+
+
+
+### Brazil Air Accidents
+
+The map below contain the 10 worst air accidents ocurred in Brazil between 2006 and 2015.
+
+When clicked, the Marker will show the total of victims in the accident.
+
+If click Zoom in the map will show the markers, with details.
+If click Zoom out, the map will group the markers in several clusters, showing the total of accidents in the cluster
+
+The circle size show the ammount of victims in the accident.
+
+
+```{r,echo=FALSE}
+
+brasilAccidents %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(popup = paste(as.character(brasilAccidents$vitim), "victims"),clusterOptions =markerClusterOptions())%>%
+  addCircles(weight=1,radius = brasilAccidents$vitim * 500)
+```
+
+
+## Conclusion
+
+This kind of visualization allow to search for details in the accident, grouping clusters, check 
+the exact place of accident or see the number of victims.
+
+
+
+
