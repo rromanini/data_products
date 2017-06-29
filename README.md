@@ -1,5 +1,8 @@
-# Week 3 Assignment
+Course Project
 
-You can open the html file in your browser, using https://rawgit.com/rromanini/data_products/master/week3.html
+The final assignment has two files:
+ui.R and Server.R
 
-The original source, R markdown file can be downloaded too...
+This case it's a map of air accidents ocurred in Brazil and allow the user filter the accidents with a slider control for the number of victims.
+
+The url for the application is https://ruiromanini.shinyapps.io/myshinyairaccidents/
