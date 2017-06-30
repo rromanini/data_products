@@ -1,0 +1,55 @@
+Brazil Air Accidents Data
+========================================================
+author: Rui Romanini
+date: 06/30/2017
+autosize: true
+
+Objective
+========================================================
+
+The final assignment has two files: ui.R and Server.R
+This case it's a map of air accidents ocurred in Brazil and allow the user filter the accidents with a slider control for the number of victims.
+The url for the application is https://ruiromanini.shinyapps.io/myshinyairaccidents/
+
+
+
+
+Understanding Data
+========================================================
+
+We can get the data about air accidents in Brazil from CENIPA (Centro de Investigacao e Prevencao de Acidentes Aeronauticos).
+
+This is the oficial site: http://www2.fab.mil.br/cenipa/
+
+The dataset can be downloaded from 2 urls:
+
+Accidents https://raw.githubusercontent.com/nosbielcs/opendata_aig_brazil/master/data/oco.csv
+
+Aircraft and number of victims https://raw.githubusercontent.com/nosbielcs/opendata_aig_brazil/master/data/anv.csv
+
+This datasets contain accidents ocurred between 2006 and 2015. I did select the 10 worst accidents, with greater number of victims.
+
+
+Brazil air accidents from 2006 until 2015
+========================================================
+
+Dataset below it's a sample and contain the 10 worst accidents. The dataset was used in Shiny Application.
+
+```{r,echo=TRUE}
+ 
+
+  brasilAccidents <-data.frame(
+  lat= c(-23.5674,-10.7444,-22.6444,-16.4406,-23.4917,-16.5408,-3.2592,-0.8669,-21.8000,-3.0411),
+  lng = c(-46.5704,-53.5203,-42.3203,-52.0042,-46.6444,-39.1078,-60.6719,-52.6436,-43.3869,-60.0506),
+  vitim = c(199,154,19,8,8,14,24,10,8,7),
+  ano=c(2007,2006,2006,2012,2007,2009,2009,2013,2012,2011),
+  classAcident = c(10,10,5,1,1,5,5,5,1,1))
+
+```
+
+
+
+Conclusion
+========================================================
+
+This kind of visualization, according the site https://ruiromanini.shinyapps.io/myshinyairaccidents, allow to search for details in the accident, grouping clusters, check the exact place of accident or see the number of victims.
